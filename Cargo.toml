@@ -1,0 +1,12 @@
+[package]
+name = "inventory"
+version = "0.1.0"
+authors = ["Fido <fido07@yahoo.com.mx>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+structopt = "0.3"
+csv = "1.1.1"
+serde = {version= "1.0", features = ["derive"]}
