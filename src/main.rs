@@ -2,6 +2,7 @@ extern crate serde;
 
 use std::fs;
 use std::fs::File;
+use std::path;
 use std::path::Path;
 use std::time::Instant;
 
@@ -78,7 +79,8 @@ fn list(original_path: String, projects_list: &mut Vec<FolderSummary>) {
 				let dir_entry = &path.unwrap();
 				if let Ok(metadata) = dir_entry.metadata() {
 					if metadata.is_dir() {
-						let fpath = format!("{}\\{}", original_path, dir_entry.file_name().into_string().unwrap());
+						let fpath = format!("{}{}{}", original_path, path::MAIN_SEPARATOR,
+											dir_entry.file_name().into_string().unwrap());
 						list(fpath, projects_list);
 					} else {
 						summary.accept(dir_entry.file_name().into_string().unwrap(), &original_path);
