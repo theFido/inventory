@@ -1,3 +1,5 @@
+VERSION = 0.1.1
+
 # commands
 CMD_GET_RT = rustup target add
 CMD_RELEASE = cargo build --release --target=
@@ -36,3 +38,13 @@ release-all: lint
 	$(CMD_RELEASE)$(WIN_RT)
 	$(CMD_RELEASE)$(LIN_RT)
 	$(CMD_RELEASE)$(MSL_RT)
+copy-all: copy-linux copy-osx copy-win
+mk-release-dir:
+	mkdir -p ./release
+copy-linux: mk-release-dir
+	tar -czvf ./release/inventory-linux-gnu-v$(VERSION).tar.gz ./target/$(LIN_RT)/release/inventory
+	tar -czvf ./release/inventory-linux-musl-v$(VERSION).tar.gz ./target/$(MSL_RT)/release/inventory
+copy-osx: mk-release-dir
+	tar -czvf ./release/inventory-osx-v$(VERSION).tar.gz ./target/$(OSX_RT)/release/inventory
+copy-win: mk-release-dir
+	tar -czvf ./release/inventory-win-v$(VERSION).tar.gz ./target/$(OSX_RT)/release/inventory.exe
